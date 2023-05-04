@@ -43,7 +43,21 @@ export class PizzaServices{
         .input('INSERT INTO Pizza (Nombre,LibreGluten,Importe,Descripcion) VALUES ("Cancha",0,1500,"Sin queso")')
     }
     static update = async (Pizza) =>{
-        
+        let rowsAffected = 0;
+        const{Nombre,LibreGluten,Importe,Descripcion} = Pizza;
+        console.log("name: " ,Nombre)
+        try{
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                                    .input("pNombre", sql.NVarChar(50), Nombre)
+                                    .input("pImporte",sql.int,Importe)
+                                    .query('UPDATE Pizza set Importe=pImporte where Nombre=pNombre');
+            rowsAffected = result.rowsAffected;
+        }
+        catch(error){
+            console.log(error);
+        }
+        return rowsAffected;
     }
     static deleteById = async (ID) =>{
         let rowsAffected = 0;
