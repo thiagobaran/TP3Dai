@@ -1,6 +1,7 @@
 import 'dotenv/config'
 
-export const config ={
+
+ export const config = {
 
     user:process.env.DB_USER,
     password:process.env.DB_PASSWORD,
@@ -11,3 +12,4 @@ export const config ={
         trustedConnection:true
     }
 }
+

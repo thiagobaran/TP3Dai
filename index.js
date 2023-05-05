@@ -2,6 +2,16 @@ import {config} from './dbconfig.js';
 import sql from 'mssql';
 import { application } from 'express';
 import { PizzaServices } from './PizzaServices.js';
+import express from "express";
+import cors from "cors";
+
+const app = express();
+const port = 3000; 
+
+app.use(cors());
+app.use(express.json());
+
+
 
 app.get('/Pizza',async(req,res)=>{
     const Pizza = await PizzaServices.getById(req.params.ID)
@@ -43,3 +53,8 @@ app.post('/Pizza',async(req,res)=>{
         res.status(500).json({error:'Fallo el delete'});
     }
 })
+app.listen(port, () =>
+{
+    console.log("escucho");
+}
+)
