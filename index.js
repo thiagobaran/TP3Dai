@@ -13,7 +13,7 @@ app.use(express.json());
 
 
 
-app.get('/Pizza',async(req,res)=>{
+app.get('/Pizza/:ID',async(req,res)=>{
     const Pizza = await PizzaServices.getById(req.params.ID)
     res.status(200).send(Pizza)
 })
@@ -22,6 +22,7 @@ app.get('/Pizza',async(req,res)=>{
     const Pizza = await PizzaServices.getAll(req.params.ID)
     res.status(200).send(Pizza)
 })
+
 app.post('/Pizza',async(req,res)=>{
     console.log("en post, req:",req)
     try{
@@ -32,7 +33,8 @@ app.post('/Pizza',async(req,res)=>{
         res.status(500).json({error:'Fallo el insertar'});
     }
 })
-app.post('/Pizza',async(req,res)=>{
+
+app.put('/Pizza',async(req,res)=>{
     console.log("en post, req:",req)
     try{
         await PizzaServices.update(req.body)
@@ -43,10 +45,10 @@ app.post('/Pizza',async(req,res)=>{
     }
 })
 
-app.post('/Pizza',async(req,res)=>{
+app.delete('/Pizza/:id',async(req,res)=>{
     console.log("en post, req:",req)
     try{
-        await PizzaServices.deleteById(req.body)
+        await PizzaServices.deleteById(req.params.id)
         res.status(200).json({message:'Pizza eliminada'});
     }   catch (error){
         console.error(error);
